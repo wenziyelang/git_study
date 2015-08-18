@@ -6,6 +6,12 @@ $ git config --global user.email johndoe@example.com
 $ git config list
 $ git config uer.name
 
+git help <verb>
+$ git <verb> --help
+$ man git-<verb>
+git help config
+$ git clone https://github.com/libgit2/libgit2 mylibgit
+
 
 1,从已有的分支创建新的分支(如从master分支),创建一个dev分支
 
