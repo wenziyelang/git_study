@@ -3,7 +3,8 @@
 命令：
 $ git config --global user.name "John Doe"
 $ git config --global user.email johndoe@example.com
-
+$ git config list
+$ git config uer.name
 
 
 1,从已有的分支创建新的分支(如从master分支),创建一个dev分支
