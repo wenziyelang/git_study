@@ -1,6 +1,6 @@
-1¡¢ÃüÁî´°¿Ú£¨Command Prompt£©»ò PowerShell
+1ã€å‘½ä»¤çª—å£ï¼ˆCommand Promptï¼‰æˆ– PowerShell
 
-ÃüÁî£º
+å‘½ä»¤ï¼š
 $ git config --global user.name "John Doe"
 $ git config --global user.email johndoe@example.com
 $ git config list
@@ -14,11 +14,11 @@ $ git clone https://github.com/libgit2/libgit2 mylibgit
 http://git-scm.com/book/zh/v2/%E5%85%B6%E5%AE%83%E7%8E%AF%E5%A2%83%E4%B8%AD%E7%9A%84-Git-%E5%9B%BE%E5%BD%A2%E7%95%8C%E9%9D%A2
 
 
-1,´ÓÒÑÓĞµÄ·ÖÖ§´´½¨ĞÂµÄ·ÖÖ§(Èç´Ómaster·ÖÖ§),´´½¨Ò»¸ödev·ÖÖ§
+1,ä»å·²æœ‰çš„åˆ†æ”¯åˆ›å»ºæ–°çš„åˆ†æ”¯(å¦‚ä»masteråˆ†æ”¯),åˆ›å»ºä¸€ä¸ªdevåˆ†æ”¯
 
 git checkout -b dev
 
-2,´´½¨Íê¿ÉÒÔ²é¿´Ò»ÏÂ,·ÖÖ§ÒÑ¾­ÇĞ»»µ½dev
+2,åˆ›å»ºå®Œå¯ä»¥æŸ¥çœ‹ä¸€ä¸‹,åˆ†æ”¯å·²ç»åˆ‡æ¢åˆ°dev
 
 git branch
 
@@ -26,24 +26,56 @@ git branch
 
     master
 
-3,Ìá½»¸Ã·ÖÖ§µ½Ô¶³Ì²Ö¿â
+3,æäº¤è¯¥åˆ†æ”¯åˆ°è¿œç¨‹ä»“åº“
 
 git push origin dev
 
-4,²âÊÔ´ÓÔ¶³Ì»ñÈ¡dev
+4,æµ‹è¯•ä»è¿œç¨‹è·å–dev
 
 git pull origin dev
 
-»òÕß£º
+æˆ–è€…ï¼š
 
-Èç¹ûÓÃÃüÁîĞĞ£¬ÔËĞĞ git fetch£¬¿ÉÒÔ½«Ô¶³Ì·ÖÖ§ĞÅÏ¢»ñÈ¡µ½±¾µØ£¬ÔÙÔËĞĞ git checkout -b local-branchname origin/remote_branchname  ¾Í¿ÉÒÔ½«Ô¶³Ì·ÖÖ§Ó³Éäµ½±¾µØÃüÃûÎªlocal-branchname  µÄÒ»·ÖÖ§
+å¦‚æœç”¨å‘½ä»¤è¡Œï¼Œè¿è¡Œ git fetchï¼Œå¯ä»¥å°†è¿œç¨‹åˆ†æ”¯ä¿¡æ¯è·å–åˆ°æœ¬åœ°ï¼Œå†è¿è¡Œ git checkout -b local-branchname origin/remote_branchname  å°±å¯ä»¥å°†è¿œç¨‹åˆ†æ”¯æ˜ å°„åˆ°æœ¬åœ°å‘½åä¸ºlocal-branchname  çš„ä¸€åˆ†æ”¯
 
-5,ÎÒ¾õµÃÏÖÔÚÖØÒªµÄ¾ÍÊÇÉèÖÃgit push,pullÄ¬ÈÏµÄÌá½»»ñÈ¡·ÖÖ§,ÕâÑù¾ÍºÜ·½±ãµÄÊ¹ÓÃgit push Ìá½»ĞÅÏ¢»ògit pull»ñÈ¡ĞÅÏ¢
+5,æˆ‘è§‰å¾—ç°åœ¨é‡è¦çš„å°±æ˜¯è®¾ç½®git push,pullé»˜è®¤çš„æäº¤è·å–åˆ†æ”¯,è¿™æ ·å°±å¾ˆæ–¹ä¾¿çš„ä½¿ç”¨git push æäº¤ä¿¡æ¯æˆ–git pullè·å–ä¿¡æ¯
 
 git branch --set-upstream-to=origin/dev
 
-È¡Ïû¶ÔmasterµÄ¸ú×Ù
+å–æ¶ˆå¯¹masterçš„è·Ÿè¸ª
 
 git branch --unset-upstream master
 
-6,ÏÖÔÚËæ±ãĞŞ¸ÄÒ»ÏÂ¹¤³ÌÎÄ¼şµÄÄÚÈİ,È»ºógit commit ,git push,Ö®ºó¾Í¿ÉÒÔÖ±½ÓÌá½»µ½Ô¶³ÌµÄdev·ÖÖ§ÖĞ,¶ø²»»áÊÇmaster
+6,ç°åœ¨éšä¾¿ä¿®æ”¹ä¸€ä¸‹å·¥ç¨‹æ–‡ä»¶çš„å†…å®¹,ç„¶ågit commit ,git push,ä¹‹åå°±å¯ä»¥ç›´æ¥æäº¤åˆ°è¿œç¨‹çš„devåˆ†æ”¯ä¸­,è€Œä¸ä¼šæ˜¯master
+
+
+
+
+mï¼š
+git clone http://gitlab.bailitop.com/dongxuepeng/test.git mengbaoqing
+
+
+cd mengbaoqing
+
+git config user.user "mengbaoqing"
+git config user.email "1129514277@qq.com"
+git branch mengbaoqing
+git checkout mengbaoqing
+ls
+touch mengbaoqing.txt
+git add mengbaoqing.txt
+git commit -m "1"
+git push origin mengbaoqing
+
+
+dï¼š
+git branch dev
+git pull origin dev
+git branch mengbaoqing
+git checkout mengbaoqing
+git pull origin mengbaoqing
+git checkout dev
+git merge orinig mengbaoqing
+git checkout master
+ls
+
