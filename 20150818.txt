@@ -78,4 +78,65 @@ git checkout dev
 git merge orinig mengbaoqing
 git checkout master
 ls
+==============================================================================
+个人开发环境：
+	个人1
+	个人2
+	个人3
+	个人N
+
+
+开发环境： Development
+	master
+	test 测试分支
+	PRO 产品分支（生产分支）
+
+
+生产环境 Production
+
+主分支 master
+开发分支 develop 
+功能分支 feature 
+预发布分支  release
+bug 分支 fixbug
+其它分支 other
+
+
+暂存区：
+git stash or git stash pop
+
+http://www.topthink.com/topic/727.html?utm_source=tuicool
+http://gitlab.bailitop.com/dongxuepeng/test/tree/master
+http://www.360doc.com/content/14/0508/17/14416931_375851686.shtml
+函数库：https://www.kernel.org/pub/software/scm/git/docs/
+克隆远程仓库：git clone https://github.com/wenziyelang/curl_baidu.git
+增加一个文件：git add test.txt
+提交一个文件：git commit -m "这是注释"
+查看状态：git status
+编辑文件：vim test.txt
+查看文件内容：cat test.txt
+上传本地当前分支代码到master分支  git push origin master
+上传本地所有分支代码到远程对应的分支 git push
+合并分支：git merge mengbaoqing
+查看分支 git branch -a
+创建分支 git branch name
+切换分支 git checkout name
+创建并切换 git checkout -b name
+合并某分支到当前分支 git merge name
+删除分支 git branch -d name
+提交该分支到远程仓库 git push origin dev
+测试从远程获取dev  git pull origin dev
+
+查看一下分支合并日志：git log --graph --pretty=oneline --abbrev-commit 
+回到过去版本：	git reset --hard master@{1}
+修改了，没有git add，已提交过 想撤销这次修改，git checkout a.txt or /src/
+修改了，已git add，git reset a.txt
+撤销到某一个版本，但是当前暂存区、工作区不想撤销，git reset --soft commitId
+如果修改了某几个文件到暂存区，想撤销到某个commit，git reset --hard commitId
+git can-file -p HEAD
+
+git stash 
+git stash pop
+
+
 
