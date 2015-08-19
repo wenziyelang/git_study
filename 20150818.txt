@@ -127,6 +127,8 @@ http://www.360doc.com/content/14/0508/17/14416931_375851686.shtml
 提交该分支到远程仓库 git push origin dev
 测试从远程获取dev  git pull origin dev
 不用add直接commit  ： git commit -a -m 'added new benchmarks'
+删除一个文件：git rm PROJECTS.md
+文件改名： git mv file_from file_to
 
 查看一下分支合并日志：git log --graph --pretty=oneline --abbrev-commit 
 回到过去版本：	git reset --hard master@{1}
