@@ -1,0 +1,168 @@
+控制器：
+
+1、看看京东的URL有什么规律，通过以下URL可以看出，地址栏有四个参数：cat、ev、page、JL，cat是栏目id，ev是属性id_属性值id，page是分页，JL是属性名称_属性值名称
+ev参数主要作用是传递给后台然后，JL参数主要作用是给选中条件赋值，我们只用ev参数，而不用JL参数的思路，地址栏出现中文看着URL会比较乱，所以咱们只用ev，至于选中参数如何赋值咱们下边讲解。
+
+http://list.jd.com/list.html?cat=670,671,672&ev=413_1367@&page=1&JL=3_尺寸_14英寸
+
+http://list.jd.com/list.html?cat=670,671,672&ev=413_1367@93109_583602@&page=1&JL=3_选购热点_女士选择
+
+http://list.jd.com/list.html?cat=670,671,672&ev=413_516@93109_583602@&page=1&JL=3_选购热点_女士选择
+
+&ev=属性id_属性值id@属性id_属性值id@&page=1
+
+
+2、第二步配置列表页rules
+			'university_usa' => 'content/list',  //列表筛选美国页
+			'university_list' => 'content/list',  //列表筛选综合页
+			'university_uk' => 'content/list',  //列表筛选英国页
+			'university_canada' => 'content/list',  //列表筛选加拿大页
+
+3、第三步
+	获取REDIRECT_URL，判断重定向的URL指向是哪个国家列表页
+	如果是university_list只查询主表内容，别的根据需求调用字段
+	
+4、第四步：
+	如果重定向URL不等于university_list，则查询属性、属性值两个表，查询出来然后重组数组，循环从数据库获取的属性数值、把数组数组中的key等于attr_id的attr_child_id替换成子类id（这里面需要做个临时数组即可、不破坏原本的地址栏参数）
+	例如：
+	SELECT a.attr_id,a.attr_name, b.attr_val_name, b.attr_val_id FROM `bl_attr` as a LEFT JOIN bl_attr_val  as b ON a.attr_id = b.attr_id WHERE a.attr_type_id = 5  ORDER BY  b.attr_val_id asc
+	取出来的数组是这样的：
+	$属性数组 = array(
+		'33'=>array(
+			'attr_name'=>'综合排名',
+			
+		)
+	);
+	
+	$属性_属性值数组 = array(16) {
+			  [0]=>
+			  array(4) {
+				["attr_id"]=>
+				string(2) "33"
+				["attr_name"]=>
+				string(12) "综合排名"
+				["attr_val_name"]=>
+				string(4) "1-30"
+				["attr_val_id"]=>
+				string(3) "133"
+			  }
+			  [1]=>
+			  array(4) {
+				["attr_id"]=>
+				string(2) "33"
+				["attr_name"]=>
+				string(12) "综合排名"
+				["attr_val_name"]=>
+				string(5) "31-50"
+				["attr_val_id"]=>
+				string(3) "134"
+			  }
+		}		
+	
+	
+	$属性属性值重组后数组  = array(4) {
+		  [33]=>
+		  array(2) {
+			["attr_name"]=>
+			string(12) "综合排名"
+			["attr_child"]=>
+			array(5) {
+			  [0]=>
+			  array(3) {
+				["attr_id"]=>
+				string(2) "33"
+				["attr_val_name"]=>
+				string(4) "1-30"
+				["attr_val_id"]=>
+				string(3) "133"
+			  }
+			  [12]=>
+			  array(3) {
+				["attr_id"]=>
+				string(2) "33"
+				["attr_val_name"]=>
+				string(9) "100以上"
+				["attr_val_id"]=>
+				string(3) "211"
+			  }
+			}
+		  }
+		  [34]=>
+		  array(2) {
+			["attr_name"]=>
+			string(13) "总学费/年"
+			["attr_child"]=>
+			array(6) {
+			  [4]=>
+			  array(3) {
+				["attr_id"]=>
+				string(2) "34"
+				["attr_val_name"]=>
+				string(13) "$20,000以下"
+				["attr_val_id"]=>
+				string(3) "138"
+			  }
+			  [5]=>
+			  array(3) {
+				["attr_id"]=>
+				string(2) "34"
+				["attr_val_name"]=>
+				string(15) "$20,001-$30,000"
+				["attr_val_id"]=>
+				string(3) "139"
+			  }
+			}
+		  }
+		}
+	
+5、获取地址栏所有的get参数，循环数组并htmlspecialchars过滤，然后给新的数组，
+
+6、如果重定向URL等于/university_usa.shtml，如果地区参数不为空，则查询state表中district=$area AND countryid = 3的地区选中值（只有美国有地区、州），
+
+7、如果重定向URL不等于university_list，则拼接sql语句，左连接university表，
+
+8、如果是通过abcdef字母过来的{
+	如果是/university_list.shtml查询ename like "' . $keywords . '%" ，以外的b.ename like "' . $keywords . '%"
+}如果通过搜索框过来的{
+	如果是/university_list.shtml查询title LIKE "%' . $search .'%" ，以外的查询b.ename like "%' . $search . '%" or b.title like "%' . $search . '%"
+}else{
+	$ev_array = explode('@', $ev); 分割ev参数
+		ev数组= 	array(3) {
+					  [0]=>
+					  string(0) ""
+					  [1]=>
+					  string(6) "33_135"
+					  [2]=>
+					  string(6) "34_139"
+					}	 
+	//把属性id作为key
+	ev新数组 =	array(2) {
+					  [33]=>
+					  string(3) "135"
+					  [34]=>
+					  string(3) "139"
+					}	
+					
+	循环ev新数组，把属性值id和属性id用逗号拼接成字符串$onclick_attr_val_id，在数据库查询出来当前选中的数据和未选中的数据
+	未选中的数据的数组再重新重组数组
+	通过属性值id拼接sql语句，找到university_attr表中包含属性值id的数据
+	
+	如果地区参数不为空，则获取当前地区选中的数组$onclick_area_array和$area_title、拼接sql语句$words_sql
+	如果州参数不为空，则获取当前州选中的数组$onclick_state_array和$state_title、拼接sql语句$words_sql
+	
+}
+
+9、通过地址栏排序的参数拼接sql语句$words_sql
+
+10、分页
+
+11、通过地区、州、属性等值为title、keywords、description赋值
+
+12、return 各数组
+
+
+视图：
+
+前台大部分都是重复的，基本上都是根据控制器传递过来的数组给a链接赋值，
+1）给选中的参数赋值，当点击选中的参数要去掉该选中的值，所以要给a链接的时候要去掉本身，就是当前url的参数减去要选的参数，也就是他们的差集
+2）给属性值参数赋值，给属性值a链接加上本身，就是当前url参数加上要选的参数，也就是他们的并集
