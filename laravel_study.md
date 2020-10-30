@@ -1,7 +1,10 @@
+# 虚拟机管理
+	+ 进入并启动虚拟机：
+	```
+	cd ~/Homestead && vagrant up
+	```
 
 
-
-进入并启动虚拟机：cd ~/Homestead && vagrant up
 列出所有的box：vagrant box list
 登录：vagrant ssh
 关闭虚拟机(windows命令行)：vagrant halt
