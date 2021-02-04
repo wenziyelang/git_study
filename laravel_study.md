@@ -1,17 +1,24 @@
+
+
 # 虚拟机管理
 
 *  __进入并启动虚拟机：__
 	` cd ~/Homestead && vagrant up`
 
 * __列出所有的box：__
+
 	`vagrant box list`
 * __登录：__
+
 	`vagrant ssh`
 * __关闭虚拟机(windows命令行)：__
+
 	`vagrant halt`
 * __销毁虚拟机：__
+
 	`vagrant destroy --force`
 * __切换到root用户：__
+
 	`sudo -i `
 * __修改root密码：__
 `sudo passwd root <1>`
@@ -19,8 +26,10 @@
 `composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/`
 
 * __查看linux配置目录：__
+
 	`ps  -ef | grep nginx`
 * __查看PHP配置目录：__
+
 	`php -i|grep php.ini`
 *  ____查看 nginx.conf配置目录__
 	`nginx -t`
@@ -34,11 +43,14 @@
     ```
 
 * __查看错误日志：__
+
 	`tail -f /var/log/nginx/another.test-error.log`
 
 + __查看php安装目录：__
+
 	`which php`
 - __php安装目录：__
+
 	`/etc/php/7.4/`
 
 * __PHP fpm sock__
@@ -93,6 +105,7 @@ php artisan route:list
     URL：127.0.0.1
     username：homestead
     password：secret
+    port：33060
 
 # xshell：
     url：192.168.10.10
@@ -100,6 +113,15 @@ php artisan route:list
     密码：1
 
 
-
+# 所有端口
+	SSH：2222 -> 转发到 22
+	ngrok UI：4040 -> 转发到 4040
+	HTTP：8000 -> 转发到 80
+	HTTPS：44300 -> 转发到 443
+	MySQL：33060 -> 转发到 3306
+	PostgreSQL：54320 -> 转发到 5432
+	MongoDB：27017 -> 转发到 27017
+	Mailhog：8025 -> 转发到 8025
+	Minio：9600 -> 转发到 9600
 
 

@@ -130,6 +130,24 @@ http://www.360doc.com/content/14/0508/17/14416931_375851686.shtml
 删除一个文件：git rm PROJECTS.md
 文件改名： git mv file_from file_to
 
+
+# 本地合并代码上线流程
+
+git checkout develop 
+git status 
+git pull origin develop 
+git checkout master 
+git pull origin master 
+git merge –no-ff develop -m "合并版本" 	##合并版本：将 develop 分支内容合并到 master 分支上
+git push origin master 					##推送 master 分支内容到远程 master 分支
+
+
+
+
+
+
+
+
 查看一下分支合并日志：git log --graph --pretty=oneline --abbrev-commit 
 回到过去版本：	git reset --hard master@{1}
 修改了，没有git add，已提交过 想撤销这次修改，git checkout a.txt or /src/
