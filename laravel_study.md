@@ -1,5 +1,3 @@
-
-
 # 虚拟机管理
 
 *  __进入并启动虚拟机：__
@@ -53,6 +51,9 @@
 
 	`/etc/php/7.4/`
 
+* __重启PHP__
+	` service php7.2-fpm restart`
+
 * __PHP fpm sock__
     ```
     fastcgi_pass unix:/var/run/php/php7.1-fpm.sock;
@@ -84,6 +85,12 @@ update-alternatives --display php
 * 设置PHP版本，执行后，会列出当前 php 所有版本和编号，输入编号，切换到执行的版本
 ```
 update-alternatives --config php
+```
+
+# nginx 
+* 查看nginx是否启动
+```
+ps -ef | grep nginx 
 ```
 
 # laravel命令
@@ -125,3 +132,8 @@ php artisan route:list
 	Minio：9600 -> 转发到 9600
 
 
+# 下载软件
+	apt install lrzsz
+	
+# composer
+	指定PHP版本更新composer：/usr/local/php56/bin/php /usr/local/bin/composer update
