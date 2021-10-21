@@ -12,7 +12,7 @@
   vagrant box list
   ```
 
-+ 更新box
++ __更新box：__
 
   ```
   vagrant box update
