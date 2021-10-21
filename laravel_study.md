@@ -17,6 +17,12 @@
   ```
   vagrant box update
   ```
+  
++ **删除指定版本box**
+
+  ```
+  vagrant box remove laravel/homestead --box-version 9.5.1
+  ```
 
 * __登录：__
 
