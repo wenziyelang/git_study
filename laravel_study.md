@@ -1,36 +1,132 @@
-# 虚拟机管理
+# 1、vagrant
 
 *  __进入并启动虚拟机：__
-	` cd ~/Homestead && vagrant up`
-
+	
+	```
+	cd ~/Homestead && vagrant up
+	```
+	
 * __列出所有的box：__
 
-	`vagrant box list`
+  ```
+  vagrant box list
+  ```
+
++ 更新box
+
+  ```
+  vagrant box update
+  ```
+
 * __登录：__
 
-	`vagrant ssh`
+  ```
+  vagrant ssh
+  ```
+
 * __关闭虚拟机(windows命令行)：__
 
-	`vagrant halt`
+  ```
+  vagrant halt
+  ```
+
 * __销毁虚拟机：__
 
-	`vagrant destroy --force`
+  ```
+  vagrant destroy --force
+  ```
+
 * __切换到root用户：__
 
-	`sudo -i `
+  ```
+  sudo -i 
+  ```
+
 * __修改root密码：__
-`sudo passwd root <1>`
-*  __更改composer镜像地址：__
-`composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/`
 
-* __查看linux配置目录：__
+  ```
+  sudo passwd root <1>
+  ```
+  
+* **apt install lrzsz**
 
-	`ps  -ef | grep nginx`
-* __查看PHP配置目录：__
+  ```
+  apt install lrzsz
+  ```
 
-	`php -i|grep php.ini`
-*  ____查看 nginx.conf配置目录__
-	`nginx -t`
+
+# 2、PHP
+
++ __查看PHP配置目录：__
+
+  ```
+  php -i|grep php.ini
+  ```
+
++ __查看php安装目录：__
+
+  ```
+  which php
+  ```
+
+- __php安装目录：__
+
+  ```
+  /etc/php/7.4/
+  ```
+
+* __重启PHP__
+
+  ```
+  service php7.2-fpm restart
+  ```
+
+* __PHP fpm sock__
+    ```
+    fastcgi_pass unix:/var/run/php/php7.1-fpm.sock;
+    fastcgi_pass unix:/var/run/php/php7.1-fpm.sock;
+    fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;
+    ```
+* **查 php 版本**
+
+  ```
+  update-alternatives --display php
+  ```
+
+* **设置PHP版本**
+
+  ```
+  update-alternatives --config php
+  ```
+  
+# 3、nginx 
+
+* **添加站点后配置步骤：**
+
+  ```
+  cd ~/Homestead
+  vagrant reload --provision
+  cd /etc/nginx/sites-available  //修改项目PHP版本
+  service nginx reload //重新加载配置文件
+  ```
+
+* **查看nginx是否启动**
+
+  ```
+  ps -ef | grep nginx 
+  ```
+
++ __查看nginx配置目录：__
+
+  ```
+  ps  -ef | grep nginx
+  ```
+
++ **查看 nginx.conf配置目录**
+
+  ```
+  `nginx -t`
+  ```
 * __虚拟主机配置目录：__
     ```
     /etc/nginx/sites-enabled/*
@@ -42,24 +138,11 @@
 
 * __查看错误日志：__
 
-	`tail -f /var/log/nginx/another.test-error.log`
-
-+ __查看php安装目录：__
-
-	`which php`
-- __php安装目录：__
-
-	`/etc/php/7.4/`
-
-* __重启PHP__
-	` service php7.2-fpm restart`
-
-* __PHP fpm sock__
     ```
-    fastcgi_pass unix:/var/run/php/php7.1-fpm.sock;
-    fastcgi_pass unix:/var/run/php/php7.1-fpm.sock;
-    fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;
+    tail -f /var/log/nginx/another.test-error.log
     ```
+
+
 * __LOGS__
     ```
     access_log /var/log/nginx/access.log;
@@ -69,58 +152,58 @@
     /home/vagrant/.config/nginx/nginx.conf
     ```
 
-# 站点配置
+# 4、composer
 
-* 添加站点后配置步骤：
-```
-cd ~/Homestead
-vagrant reload --provision
-cd /etc/nginx/sites-available  //修改项目PHP版本
-service nginx reload //重新加载配置文件
-```
-* 查看所有 php 版本和当前版本
-```
-update-alternatives --display php
-```
-* 设置PHP版本，执行后，会列出当前 php 所有版本和编号，输入编号，切换到执行的版本
-```
-update-alternatives --config php
-```
++ __更改composer镜像地址：__
 
-# nginx 
-* 查看nginx是否启动
-```
-ps -ef | grep nginx 
-```
+  ```
+  composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
+  ```
+  
++ **更新扩展**
 
-# laravel命令
-* 更新lumen：在根目录执行以下命令：
-```
-composer update
-```
-* 创建controller
-```
-php artisan make:controller TestController
-```
-* 列出所有的controller
-```
-php artisan route:list
-```
+  ```
+  composer update
+  ```
+
++ **指定PHP版本更新composer**
+
+  ```
+  /usr/local/php56/bin/php /usr/local/bin/composer update
+  ```
 
 
-# 数据库
+# 5、laravel命令
+
+* **创建controller**
+
+  ```
+  php artisan make:controller TestController
+  ```
+
+* **列出所有的controller**
+
+  ```
+  php artisan route:list
+  ```
+
+# 6、数据库
+
     URL：127.0.0.1
     username：homestead
     password：secret
     port：33060
 
-# xshell：
-    url：192.168.10.10
-    账号：root
-    密码：1
+# 7、xshell：
+
+```
+url：192.168.10.10
+账号：root
+密码：1
+```
 
 
-# 所有端口
+# 8、端口
 	SSH：2222 -> 转发到 22
 	ngrok UI：4040 -> 转发到 4040
 	HTTP：8000 -> 转发到 80
@@ -131,9 +214,3 @@ php artisan route:list
 	Mailhog：8025 -> 转发到 8025
 	Minio：9600 -> 转发到 9600
 
-
-# 下载软件
-	apt install lrzsz
-	
-# composer
-	指定PHP版本更新composer：/usr/local/php56/bin/php /usr/local/bin/composer update
