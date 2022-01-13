@@ -220,3 +220,26 @@ url：192.168.10.10
 	Mailhog：8025 -> 转发到 8025
 	Minio：9600 -> 转发到 9600
 
+
+
+# 9、laravel admin 命令
+
++ 添加路由：在路由配置文件`app/Admin/routes.php`里添加一行：
+
+  ```
+  $router->resource('users', UserController::class);
+  ```
+
++ 创建model
+
+  ```
+  php artisan make:model Movies
+  ```
+
++ 创建controller
+
+  ```
+  php artisan admin:make MoviesController --model=App\\Models\\Movies
+  ```
+
+  
