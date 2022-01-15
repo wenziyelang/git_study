@@ -224,22 +224,72 @@ url：192.168.10.10
 
 # 9、laravel admin 命令
 
-+ 添加路由：在路由配置文件`app/Admin/routes.php`里添加一行：
++ 安装laravel
+
+  + 通过composer安装
+
+    ```
+    composer create-project laravel/laravel example-app
+    
+    cd example-app
+    
+    php artisan serve
+    ```
+
+  + 通过laravel 安装器
+
+    ```
+    composer global require laravel/installer
+    
+    laravel new example-app
+    
+    cd example-app
+    
+    php artisan serve
+    ```
+
++ 安装laravel admin：首先确保安装好了`Laravel`，并且***数据库连接\***设置正确。
 
   ```
-  $router->resource('users', UserController::class);
+  composer require encore/laravel-admin:2.*
   ```
 
-+ 创建model
++ 然后运行下面的命令来发布资源：
+
+  ```
+  php artisan vendor:publish --provider="Encore\Admin\AdminServiceProvider"
+  ```
+
++ 在该命令会生成配置文件`config/admin.php`，可以在里面修改安装的地址、数据库连接、以及表名，建议都是用默认配置不修改。
+
+  然后运行下面的命令完成安装：账号密码：admin，地址：http://localhost:8000/admin/
+
+  ```
+  php artisan admin:install
+  ```
+
+  
+
++ **创建model**
 
   ```
   php artisan make:model Movies
   ```
 
-+ 创建controller
++ **创建controller**
 
   ```
   php artisan admin:make MoviesController --model=App\\Models\\Movies
   ```
+
++ **添加路由：**在路由配置文件`app/Admin/routes.php`里添加一行：
+
+  ```
+  $router->resource('users', UserController::class);
+  ```
+
++ **菜单管理：** http://localhost:8000/admin/auth/menu
+
+  
 
   
