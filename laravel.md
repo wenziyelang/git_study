@@ -220,9 +220,36 @@ url：192.168.10.10
 	Mailhog：8025 -> 转发到 8025
 	Minio：9600 -> 转发到 9600
 
+# 9、redis
+
++ 配置密码
+
+  ```
+  vim /etc/redis/redis.conf
+  ```
+
+  ```
+  bind 0.0.0.0
+  requirepass 123456
+  ```
+
++ 重启：
+
+  ```
+  修改好配置后，保存重启服务 sudo service redis restart。也可以用 ps -ef | grep redis 命令查看服务重启后的修改情况。
+  ```
+
++ 数据库配置：.env
+
+  ```
+  REDIS_HOST=192.168.10.10
+  REDIS_PASSWORD=123456
+  REDIS_PORT=6379
+  ```
 
 
-# 9、laravel admin 命令
+
+# 10、laravel admin 命令
 
 + **安装laravel**
 
