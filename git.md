@@ -51,6 +51,37 @@ git是目前世界上最先进的分布式版本控制系统（没有之一）。
 + 上传本地tag到远程仓库：`git push origin --tags`
 + 创建带注释的tag：`git tag <name> -m "your message"`
 
+## 本地合并代码上线流程
+
+```
+git checkout develop 
+git status 
+git pull origin develop 
+git checkout master 
+git pull origin master 
+git merge –no-ff develop -m "合并版本" 	##合并版本：将 develop 分支内容合并到 master 分支上
+git push origin master 					##推送 master 分支内容到远程 master 分支
+```
+
+`--no-ff`：不使用fast-forward方式合并，保留分支的commit历史
+`--squash`：使用squash方式合并，把多次分支commit历史压缩为一次
+
+
+
+## 撤回修改等
+
++ 查看一下分支合并日志：git log --graph --pretty=oneline --abbrev-commit 
+
++ 回到过去版本：	git reset --hard master@{1}
+
++ 修改了，没有git add，已提交过 想撤销这次修改，git checkout a.txt or /src/
+
++ 修改了，已git add，git reset a.txt
+
++ 撤销到某一个版本，但是当前暂存区、工作区不想撤销，git reset --soft commitId
+
++ 如果修改了某几个文件到暂存区，想撤销到某个commit，git reset --hard commitId
+
 ## 忽略一些文件、文件夹不提交
 在仓库根目录下创建一个名为“.gitignore”的文件，往里面写入不需要的文件夹名或文件，每个元素占一行即可，如下所示：
 ```shell
@@ -59,3 +90,11 @@ cache
 *.jpg
 ```
 
+## 分支管理
+
++ 主分支 master
++ 开发分支 develop 
++ 功能分支 feature 
++ 预发布分支  release
++ bug 分支 fixbug
++ 其它分支 other
