@@ -1,5 +1,11 @@
 # 1、vagrant
 
++ **重新生成homestead.yaml**
+
+  ```
+  init.bat
+  ```
+
 *  __进入并启动虚拟机：__
 	
 	```
@@ -178,8 +184,176 @@
   /usr/local/php56/bin/php /usr/local/bin/composer update
   ```
 
-
 # 5、laravel命令
+
++ **开启关闭网站**
+
+  + **关闭网站**
+
+    ```
+    php artisan down
+    ```
+
+  + 开启网站
+
+    ```
+    php artisan up
+    ```
+
+  + 即使在维护模式下，你也可以使用 secret 选项指定维护模式的绕过令牌：
+
+    ```
+    php artisan down --secret="1630542a-246b-4b66-afa1-dd72a4c43515"
+    ```
+
+  + 将应用程序置于维护模式后，您可以访问与该令牌匹配的应用程序 URL，Laravel 将向您的浏览器发出一个维护模式绕过 cookie：
+
+    ```
+    https://example.com/1630542a-246b-4b66-afa1-dd72a4c43515
+    ```
+
+  + 指定错误状态码及页面
+
+    ```
+    php artisan down --render="errors::503"
+    ```
+
+  + 重定向到页面地址
+
+    ```
+    php artisan down --redirect=/
+    ```
+
+  
+
+  + **数据库**
+
+  + 查看artisan 所有可用命令
+
+    ```
+    php artisan list make
+    ```
+
+  + 创建迁移文件
+
+    ```
+    php artisan make:migration add_activation_to_users_table --table=users
+    ```
+
+  + 迁移数据表命令
+
+    ```
+    php artisan migrate
+    ```
+
+  + 重置并填充数据库
+
+    ```
+    php artisan migrate:refresh --seed
+    ```
+
+  + 迁移文件字段管理
+
+    ```
+    {
+        public function up()
+        {
+            Schema::create('statuses', function (Blueprint $table) {
+                $table->increments('id');
+                $table->text('content');
+                $table->integer('user_id')->index();
+                $table->index(['created_at']);
+                $table->timestamps();
+            });
+        }
+    
+        public function down()
+        {
+            Schema::dropIfExists('statuses');
+        }
+    ```
+
+  + 填充数据（模型工厂）
+
+    ```
+    php artisan make:factory StatusFactory
+    php artisan make:seeder StatusesTableSeeder
+    php artisan migrate:refresh --seed
+    ```
+
+    
+
+
+
++ **controllers**：
+
+  ```
+  php artisan make:controller StatusesController
+  ```
+
++ 授权策略：
+
+  + 生成授权策略：
+
+    ```
+    php artisan make:policy StatusPolicy
+    ```
+
+    
+
++ **禁用启用服务**
+
+  ```
+  services:
+      - enabled:
+          - "postgresql@12-main"
+      - disabled:
+          - "mysql"
+  ```
+
+* **安装可选功能**
+
+  ```
+  features:
+      - blackfire:
+          server_id: "server_id"
+          server_token: "server_value"
+          client_id: "client_id"
+          client_token: "client_value"
+      - cassandra: true
+      - chronograf: true
+      - couchdb: true
+      - crystal: true
+      - docker: true
+      - elasticsearch:
+          version: 7.9.0
+      - gearman: true
+      - golang: true
+      - grafana: true
+      - influxdb: true
+      - mariadb: true
+      - minio: true
+      - mongodb: true
+      - mysql8: true
+      - neo4j: true
+      - ohmyzsh: true
+      - openresty: true
+      - pm2: true
+      - python: true
+      - rabbitmq: true
+      - solr: true
+      - webdriver: true
+      
+  ```
+
+  ```
+     1、MariaDB：启用 MariaDB 将会移除 MySQL 并安装 MariaDB
+     2、MongoDB：用户名为 homestead 及对应的密码为 secret
+     3、Elasticsearch：如果你要安装 Elasticsearch，你可以在 Homestead.yaml 文件中添加 elasticsearch 选项并指定支持的版本号。可以仅包含主版本，也可以是某个具体的版本号（major.minor.patch）。默认安装会创建一个名为「homestead」的集群。 注意永远不要赋予 Elasticsearch 超过操作系统一半的内存，因此请保证你的 Homestead 至少分配了两倍于 Elasticsearch 的内存；操作文档：https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html
+     4、
+  ```
+
+  
 
 * **创建controller**
 
@@ -274,6 +448,7 @@ url：192.168.10.10
     
     php artisan serve
     ```
+
 
 + **安装laravel admin**：
 
